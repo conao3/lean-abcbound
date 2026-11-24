@@ -20,16 +20,17 @@ def ABCConjecture : Prop :=
 
 This is the constant form of the conjecture, the same shape as `abc.variants.lt_constant_mul` in [google-deepmind/formal-conjectures](https://github.com/google-deepmind/formal-conjectures/blob/main/FormalConjectures/Wikipedia/ABC.lean).
 
-## Checks on the statement
+## Checked results
 
-`Abc/Sanity.lean` proves:
-
-- `rad_eq_radical`: `rad` equals Mathlib's `UniqueFactorizationMonoid.radical` on `ℕ`.
-- `rad_one`, `rad_twelve`, `rad_one_mul_eight_mul_nine`: values of `rad` on concrete inputs.
-- `rad_two_pow`: `rad (2 ^ n) = 2` for `n ≠ 0`.
-- `not_bound_without_coprime`: the bound fails once the coprimality hypothesis is removed, witnessed by `2 ^ n + 2 ^ n = 2 ^ (n + 1)`.
+- `Abc/Sanity.lean`: `rad` equals Mathlib's `UniqueFactorizationMonoid.radical` on `ℕ`, values of `rad` on concrete inputs, and `not_bound_without_coprime` (the bound fails once the coprimality hypothesis is removed, witnessed by `2 ^ n + 2 ^ n = 2 ^ (n + 1)`).
+- `Abc/Radical.lean`: `rad_pos`, `rad_dvd`, `rad_le`, `rad_mul` for coprime factors, and `rad_mul_mul_add`.
+- `Abc/Equivalent.lean`: `abcConjecture_iff_pairwise` (the statement with `c` positive and `{a, b, c}` pairwise coprime) and `abcConjecture_iff_finite` (for every `ε > 0`, finitely many coprime triples satisfy `rad (a * b * c) ^ (1 + ε) < c`).
 
 `audit.expected` records the axioms each of these theorems depends on.
+
+## Where to continue
+
+[docs/roadmap.md](docs/roadmap.md) lists the next steps inside this repository and the starting point of each stage of the route through inter-universal Teichmüller theory.
 
 ## Commands
 

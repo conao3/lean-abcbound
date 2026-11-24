@@ -11,4 +11,5 @@ fmt:
 
 .PHONY: audit
 audit:
+	lake build
 	lake env lean Audit.lean > audit.expected

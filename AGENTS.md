@@ -6,6 +6,9 @@
 
 - `Abc/Statement.lean`: `Abc.rad` and `Abc.ABCConjecture`. It imports Mathlib alone.
 - `Abc/Sanity.lean`: theorems that pin down the meaning of the statement.
+- `Abc/Radical.lean`: basic facts about `rad`.
+- `Abc/Equivalent.lean`: equivalent forms of the statement and the proofs of equivalence.
+- `docs/roadmap.md`: the remaining work and where each piece starts. Update it in the commit that adds or completes a step.
 - `Audit.lean`: `#print axioms` for every theorem in the library. `audit.expected` holds its output.
 - `lean-toolchain`, `lakefile.toml`, `lake-manifest.json`: the Lean and Mathlib versions.
 
