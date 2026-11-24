@@ -15,12 +15,14 @@ A proof of any one of `ABCConjecture`, `ABCConjecturePairwise`, `ABCConjectureFi
 
 ## Small steps inside this repository
 
-Each step is a self-contained theorem over Mathlib and is checked by `make check`.
+Each item is a theorem to prove over Mathlib alone. The plan next to it is the intended argument and is unchecked until the theorem is in `audit.expected`.
 
-1. The quality form: finitely many coprime triples with `log c / log (rad (a * b * c)) > 1 + ε`, as in `abc.variants.quality` of [formal-conjectures](https://github.com/google-deepmind/formal-conjectures/blob/main/FormalConjectures/Wikipedia/ABC.lean). It follows from `ABCConjectureFinite` by taking logarithms; the triple `(1, 1, 2)` has `rad = 2 > 1`, so the logarithm in the denominator is positive for every triple.
-2. The exponent `1 + ε` is needed: the bound `c < K * rad (a * b * c)` fails for every `K`, witnessed by `1 + (3 ^ (2 ^ n) - 1) = 3 ^ (2 ^ n)`, where `2 ^ (n + 2)` divides `3 ^ (2 ^ n) - 1`.
-3. Consequences of `ABCConjecture`: Fermat's equation `x ^ n + y ^ n = z ^ n` has no coprime positive solutions for all large `n`. Mathlib states the equation in `Mathlib/NumberTheory/FLT/Basic.lean`.
-4. The Szpiro conjecture for elliptic curves over `ℚ`, as a statement. Mathlib has minimal Weierstrass equations (`Mathlib/AlgebraicGeometry/EllipticCurve/Reduction.lean`) and heights (`Mathlib/NumberTheory/Height/`); the conductor is the definition to add first.
+| Target | Plan |
+|---|---|
+| The quality form: finitely many coprime triples with `log c / log (rad (a * b * c)) > 1 + ε`, as in `abc.variants.quality` of [formal-conjectures](https://github.com/google-deepmind/formal-conjectures/blob/main/FormalConjectures/Wikipedia/ABC.lean), is equivalent to `ABCConjectureFinite` | Take logarithms. `c ≥ 2` gives `rad (a * b * c) ≥ 2`, so the denominator is positive. |
+| The exponent `1 + ε` is needed: `c < K * rad (a * b * c)` fails for every `K` | Use the triples `1 + (3 ^ (2 ^ n) - 1) = 3 ^ (2 ^ n)` for `n ≥ 1`, with `2 ^ (n + 2) ∣ 3 ^ (2 ^ n) - 1`. |
+| `ABCConjecture` implies that `x ^ n + y ^ n = z ^ n` has no coprime positive solutions for all large `n` | Apply the bound to `(x ^ n, y ^ n, z ^ n)` with `rad (x * y * z) ≤ z ^ 3`. Mathlib states the equation in `Mathlib/NumberTheory/FLT/Basic.lean`. |
+| The Szpiro conjecture for elliptic curves over `ℚ`, as a statement | Mathlib has minimal Weierstrass equations (`Mathlib/AlgebraicGeometry/EllipticCurve/Reduction.lean`) and heights (`Mathlib/NumberTheory/Height/`). The conductor of an elliptic curve is the definition to add first. |
 
 ## The route through inter-universal Teichmüller theory
 
@@ -28,15 +30,15 @@ Mochizuki's progress report ([On the formalization of IUT, April 2026](https://w
 
 | Stage | Content | State in the sources | Where to start |
 |---|---|---|---|
-| 1 | [IUTchIII] Theorem 3.11 ⟹ Corollary 3.12 | Disputed since the 2018 report of Scholze and Stix. Mochizuki's group has skeletal Lean code for the last portion, "3.11.5 ⟹ 3.12". Project LANA reports that a proof of the required compatibility is still to be reconstructed. | [LANA interim report, July 2026](https://ncatlab.org/nlab/files/LANAProject-Report-July2026.pdf), §8 "On the logic from theorem 3.11 to corollary 3.12" and §9 "Points to be clarified": the open point is whether a certain diagram commutes, or a certain isomorphism is the identity, once the indeterminacies Ind1, Ind2, Ind3 are taken into account |
-| 2 | Proof of Theorem 3.11 modulo [IUTchI–II] | Skeletal Lean code in progress at RIMS | Mochizuki's report, §3 and §4 |
+| 1 | [IUTchIII] Theorem 3.11 ⟹ Corollary 3.12 | Disputed since the 2018 report of Scholze and Stix. Mochizuki's report places the work in the early skeletal portion of this stage: his group has skeletal Lean code for the last portion, "3.11.5 ⟹ 3.12", and is writing it for "3.11 ⟹ 3.11.5". Project LANA reports that a proof of the required compatibility is still to be reconstructed. | [LANA interim report, July 2026](https://ncatlab.org/nlab/files/LANAProject-Report-July2026.pdf), §8 "On the logic from theorem 3.11 to corollary 3.12" and §9 "Points to be clarified": the open point is whether a certain diagram commutes, or a certain isomorphism is the identity, once the indeterminacies Ind1, Ind2, Ind3 are taken into account. Mochizuki's report, §4, describes the decomposition of this stage. |
+| 2 | Proof of Theorem 3.11 modulo [IUTchI–II] | To be formalized | Mochizuki's report, §3 |
 | 3 | [IUTchI–II] modulo earlier results | To be formalized | The papers [IUTchI], [IUTchII] |
-| 4 | Earlier results (1995–2015): anabelian geometry, Frobenioids, the étale theta function | Mochizuki's report describes these as understood by a larger class of mathematicians and as candidates for autoformalization. An anabelian geometry library is the first objective of Project LANA. | The reference list of Mochizuki's report: [pGC], [AbsAnb], [SemiAn], [FrdI–II], [EtTh], [GenEll], [AbsTopI–III] |
+| 4 | Earlier results (1995–2015): anabelian geometry, Frobenioids, the étale theta function | Mochizuki's report describes these as understood by a larger class of mathematicians and as candidates for autoformalization. Project LANA set the formalization of the basic parts of anabelian geometry as its first target (LANA interim report, §0.2). | The reference list of Mochizuki's report: [pGC], [AbsAnb], [SemiAn], [FrdI–II], [EtTh], [GenEll], [AbsTopI–III] |
 | 5 | Numerical aspects: [IUTchIV], [ExpEst] | To be formalized; described in the same terms as stage 4 | The papers [IUTchIV] and [ExpEst] |
 
 The Lean code named in the two reports is described there in prose. Its public location is the first thing to look up before working on stages 1 and 2.
 
-Stage 1 decides whether this route proves the conjecture. Stages 4 and 5 are the parts that can be worked on independently of that question, and stage 4 is also the part with no counterpart in Mathlib.
+Stage 1 decides whether this route proves the conjecture. Stages 4 and 5 are the parts that can be worked on independently of that question. Stage 4 starts from definitions: a search of Mathlib `v4.35.0` for "anabelian" and "Frobenioid" returns no file.
 
 ## The route through a new proof
 
