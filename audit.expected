@@ -1,0 +1,6 @@
+'Abc.rad_eq_radical' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Abc.rad_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Abc.rad_twelve' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Abc.rad_one_mul_eight_mul_nine' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Abc.rad_two_pow' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Abc.not_bound_without_coprime' depends on axioms: [propext, Classical.choice, Quot.sound]
